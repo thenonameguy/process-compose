@@ -1,14 +1,15 @@
-{ buildGoModule, config, lib, pkgs, installShellFiles, date, commit }:
+{ buildGoModule, config, lib, pkgs, installShellFiles, commit }:
 
+let pkg = "github.com/f1bonacc1/process-compose/src/config";
+in
 buildGoModule rec {
   pname = "process-compose";
   version = "0.29.1";
-  pkg = "github.com/f1bonacc1/process-compose/src/config";
 
-  src = ./.;
+  src = lib.cleanSource ./.;
+
   ldflags = [
     "-X ${pkg}.Version=v${version}"
-    "-X ${pkg}.Date=${date}"
     "-X ${pkg}.Commit=${commit}"
     "-s"
     "-w"
